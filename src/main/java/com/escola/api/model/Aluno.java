@@ -6,20 +6,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
-@Table(name = "turma")
+@NoArgsConstructor
+@Table(name = "aluno")
 public class Aluno {
 
 	@Id
@@ -34,4 +39,9 @@ public class Aluno {
 	
 	@NotNull
 	private BigDecimal mediaDeNotas;
+	
+	@ManyToOne
+	@JoinColumn(name = "turma_id")
+	@JsonIgnore
+	private Turma turma;
 }

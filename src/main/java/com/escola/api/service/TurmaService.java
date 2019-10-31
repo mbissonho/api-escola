@@ -38,11 +38,13 @@ public class TurmaService {
 	}
 	
 	public void deleteById(Long id) {
+		log.info("Deletando turma pelo id");
 		Turma turmaSaved = findAlreadySaved(id);
 		this.repository.delete(turmaSaved);
 	}
 	
 	public Turma findById(Long id) {
+		log.info("Buscando turma pelo id");
 		Turma turmaSaved = this.findAlreadySaved(id);
 		return turmaSaved;
 	}

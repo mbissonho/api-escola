@@ -2,6 +2,7 @@ package com.escola.api.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +36,7 @@ public class Turma {
 	@NotBlank
 	private String titulo;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
 	private List<Aluno> alunos;
 	
 }

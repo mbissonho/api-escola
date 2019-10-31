@@ -1,0 +1,157 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Api Escola",
+		"_postman_id": "ed704626-8c89-cd38-b8b2-aa7fcedc5f2f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create turma",
+			"request": {
+				"url": "http://localhost:8080/v1/turma",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"serie\":\"6ª\",\n\t\"titulo\": \"601\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update turma",
+			"request": {
+				"url": "http://localhost:8080/v1/turma/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"serie\":\"6ª\",\n\t\"titulo\": \"602\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all turmas",
+			"request": {
+				"url": "http://localhost:8080/v1/turma",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get by id turma",
+			"request": {
+				"url": "http://localhost:8080/v1/turma/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete by id turma",
+			"request": {
+				"url": "http://localhost:8080/v1/turma/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Aluno",
+			"request": {
+				"url": "http://localhost:8080/v1/aluno",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"Lucas\",\n\t\"quantidadeDeFaltas\": 6,\n\t\"mediaDeNotas\": 8.7\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update aluno",
+			"request": {
+				"url": "http://localhost:8080/v1/aluno/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"nome\": \"Lucas Siqueira\",\n\t\"quantidadeDeFaltas\": 6,\n\t\"mediaDeNotas\": 8.7\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all alunos",
+			"request": {
+				"url": "http://localhost:8080/v1/aluno",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get by id aluno",
+			"request": {
+				"url": "http://localhost:8080/v1/aluno/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete by id aluno",
+			"request": {
+				"url": "http://localhost:8080/v1/aluno/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
