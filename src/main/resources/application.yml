@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/apiescoladb?createDatabaseIfNotExist=true&useSSL=false
+    username: root
+    password: root
+            
+  jpa:
+    show-sql: true
+    hibernate: 
+      ddl-auto: update
+      
+
+  jackson: 
+    deserialization: 
+      fail-on-unknown-properties: true
