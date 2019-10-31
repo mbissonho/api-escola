@@ -1,0 +1,8 @@
+CREATE TABLE aluno (
+	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(50) NOT NULL,
+	media_de_notas DECIMAL(19,2) NOT NULL,
+	quantidade_de_faltas INT(11) NOT NULL,
+	turma_id BIGINT(20) NOT NULL,
+	FOREIGN KEY (turma_id) REFERENCES turma(id) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
