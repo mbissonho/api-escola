@@ -8,8 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +42,17 @@ public class Turma {
 	@NotBlank
 	private String titulo;
 	
-	@OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("turma")
+	@Valid
+	@OneToMany(mappedBy = "turma", cascade = CascadeType.REMOVE)
 	private List<Aluno> alunos;
+	
+	@Transient
+	private Integer quantidadeDeAlunos;
+	
+	@PostLoad
+	public void countQuantidadeDeAlunos() {
+		this.quantidadeDeAlunos = this.alunos.size();
+	}
 	
 }

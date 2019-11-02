@@ -1,5 +1,7 @@
 package com.escola.api.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,11 @@ public class AlunoController {
 	@GetMapping
 	public ResponseEntity<Iterable<Aluno>> search(Pageable pageable){
 		return new ResponseEntity<Iterable<Aluno>>(service.search(pageable), HttpStatus.OK);
+	}
+	
+	@GetMapping("/turma/{turmaId}")
+	public ResponseEntity<List<Aluno>> findByTurma(@PathVariable Long turmaId){
+		return new ResponseEntity<List<Aluno>>(service.findByTurma(turmaId), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")

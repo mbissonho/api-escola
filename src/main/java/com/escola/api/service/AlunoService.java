@@ -1,5 +1,6 @@
 package com.escola.api.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -19,6 +20,9 @@ public class AlunoService {
 
 	@Autowired
 	private AlunoRepository repository;
+	
+	@Autowired
+	private TurmaService turmaService;
 
 	public Iterable<Aluno> search(Pageable pageable) {
 		log.info("Buscando alunos");
@@ -49,6 +53,11 @@ public class AlunoService {
 		return alunoSaved;
 	}
 	
+	public List<Aluno> findByTurma(Long turmaId) {
+		log.info("Buscando alunos pela turma");
+		return this.repository.findByTurma(this.turmaService.findById(turmaId));
+	}
+	
 	private Aluno findAlreadySaved(Long id) {
 		Optional<Aluno> alunoOp = repository.findById(id);
 		if(!alunoOp.isPresent()) {
@@ -57,6 +66,4 @@ public class AlunoService {
 		return alunoOp.get();
 	}
 
-
-	
 }
