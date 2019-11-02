@@ -33,13 +33,13 @@ public class Turma {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	@NotBlank(message = "Nome do Professor é obrigatório")
 	private String nomeDoProfessor;
 	
-	@NotBlank
+	@NotBlank(message = "Série é obrigatório")
 	private String serie;
 	
-	@NotBlank
+	@NotBlank(message = "Título é obrigatório")
 	private String titulo;
 	
 	@JsonIgnoreProperties("turma")

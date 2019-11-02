@@ -31,18 +31,18 @@ public class Aluno {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
 	
-	@NotNull
+	@NotNull(message = "Quantidade de Faltas é obrigatório")
 	private Integer quantidadeDeFaltas;
 	
-	@NotNull
+	@NotNull(message = "Média de Notas é obrigatório")
 	private BigDecimal mediaDeNotas;
 	
 	@JsonIgnoreProperties("alunos")
 	@ManyToOne()
 	@JoinColumn(name = "turma_id")
-	@NotNull
+	@NotNull(message = "Turma é obrigatório")
 	private Turma turma;
 }
