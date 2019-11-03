@@ -15,9 +15,11 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -79,6 +81,19 @@ public class TurmaControllerTest {
 	}
 	
 	@Test
+	public void doFindById_AndShouldThrowEmptyResultDataAccessExceptionForTurmaWithGivenId() throws Exception {
+		
+		List<Aluno> alunos = new ArrayList<>();
+		alunos.add(new Aluno(6L, "João", new Integer(6), new BigDecimal(8.9), new Turma()));
+		
+		when(service.findById(4L)).thenThrow(new EmptyResultDataAccessException(1));
+		
+		mockMvc.perform(get("/v1/turma/{id}", "4"))
+		.andExpect(status().isNotFound())
+		.andExpect(jsonPath("$[0].userMessage", is("Erro: recurso não encontrado")));
+	}
+	
+	@Test
 	public void doCreate_AndShouldReturnCreatedTurma() throws Exception {
 		
 		List<Aluno> alunos = new ArrayList<>();
@@ -111,8 +126,38 @@ public class TurmaControllerTest {
 	}
 	
 	@Test
+	public void doUpdate_AndShouldThrowEmptyResultDataAccessExceptionForGivenTurma() throws Exception {
+		
+		Turma turma = new Turma();
+		
+		Mockito.doThrow(new EmptyResultDataAccessException(1))
+		.when(service)
+		.update(4L, turma);
+		
+		this.mockMvc.perform(put("/v1/turma/{id}", "4")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(turma))
+		).andExpect(status().isNotFound())
+		.andExpect(jsonPath("$[0].userMessage", is("Erro: recurso não encontrado")));
+		
+	}
+	
+	@Test
 	public void doDeleteById_AndShouldReturnHttpStatusNoContent() throws Exception {
 		this.mockMvc.perform(delete("/v1/turma/{id}","13")).andExpect(status().isNoContent());
+	}
+	
+	
+	@Test
+	public void doDeleteById_AndShouldThrowEmptyResultDataAccessExceptionForGivenId() throws Exception {
+		
+		Mockito.doThrow(new EmptyResultDataAccessException(1))
+		.when(service)
+		.deleteById(13L);
+		
+		this.mockMvc.perform(delete("/v1/turma/{id}","13"))
+		.andExpect(status().isNotFound())
+		.andExpect(jsonPath("$[0].userMessage", is("Erro: recurso não encontrado")));
 	}
 	
 }

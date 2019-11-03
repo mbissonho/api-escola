@@ -52,6 +52,7 @@ public class TurmaService {
 	private Turma findAlreadySaved(Long id) {
 		Optional<Turma> turmaOp = repository.findById(id);
 		if(!turmaOp.isPresent()) {
+			log.info("Turma de id " + id + " não encontrada");
 			throw new EmptyResultDataAccessException(1);
 		}
 		return turmaOp.get();

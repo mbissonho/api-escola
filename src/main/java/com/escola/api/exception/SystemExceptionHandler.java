@@ -29,36 +29,37 @@ public class SystemExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler({ DataIntegrityViolationException.class } )
 	public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
-		String mensagemUsuario = messageSource.getMessage("data_integrity_violation_exception", null, ex.getMessage(), LocaleContextHolder.getLocale());
-		String mensagemDesenvolvedor = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
-		List<SystemError> erros = Arrays.asList(new SystemError(mensagemUsuario, mensagemDesenvolvedor));
-		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+		List<SystemError> SystemErrorrs = this.makeSystemErrorsList("data_integrity_violation_exception", ex);
+		return handleExceptionInternal(ex, SystemErrorrs, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 	
 	@ExceptionHandler(EmptyResultDataAccessException.class)
 	public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest reques) {
-		String userMessage = messageSource.getMessage("empty_result_data_access_exception", null, ex.getMessage(), LocaleContextHolder.getLocale());
-		String devMessage = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
-		List<SystemError> SystemErrorrs = Arrays.asList(new SystemError(userMessage, devMessage));
-		return handleExceptionInternal(ex, SystemErrorrs, new HttpHeaders(), HttpStatus.BAD_REQUEST, reques);
+		List<SystemError> SystemErrorrs = this.makeSystemErrorsList("empty_result_data_access_exception", ex);
+		return handleExceptionInternal(ex, SystemErrorrs, new HttpHeaders(), HttpStatus.NOT_FOUND, reques);
 	}
 	
 	@Override
-	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status,  WebRequest reques){
-		String userMessage = messageSource.getMessage("http_message_not_readable", null, ex.getMessage(), LocaleContextHolder.getLocale());
-		String devMessage = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
-		List<SystemError> SystemErrorrs = Arrays.asList(new SystemError(userMessage, devMessage));
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, 
+			HttpHeaders headers, HttpStatus status,  WebRequest reques){
+		List<SystemError> SystemErrorrs = this.makeSystemErrorsList("http_message_not_readable", ex);
 		return handleExceptionInternal(ex, SystemErrorrs, new HttpHeaders(), HttpStatus.BAD_REQUEST, reques);
 	}
 	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		List<SystemError> SystemErrors = makeSystemErrorsList(ex.getBindingResult());
+		HttpHeaders headers, HttpStatus status, WebRequest request) {
+		List<SystemError> SystemErrors = makeSystemErrorsListFromBindingResult(ex.getBindingResult());
 		return handleExceptionInternal(ex, SystemErrors, headers, HttpStatus.BAD_REQUEST, request);
 	}
 	
-	private List<SystemError> makeSystemErrorsList(BindingResult bindingResult) {
+	private List<SystemError> makeSystemErrorsList(String messageCode, Exception ex){
+		String userMessage = messageSource.getMessage(messageCode, null, ex.getMessage(), LocaleContextHolder.getLocale());
+		String devMessage = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
+		return Arrays.asList(new SystemError(userMessage, devMessage));
+	}
+	
+	private List<SystemError> makeSystemErrorsListFromBindingResult(BindingResult bindingResult) {
 		List<SystemError> SystemErrors = new ArrayList<>();
 		
 		for (FieldError fieldSystemError : bindingResult.getFieldErrors()) {
