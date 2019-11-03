@@ -23,7 +23,7 @@ public class AlunoService {
 	
 	@Autowired
 	private TurmaService turmaService;
-
+	
 	public Iterable<Aluno> search(Pageable pageable) {
 		log.info("Buscando alunos");
 		return this.repository.findAll(pageable);
