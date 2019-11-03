@@ -47,7 +47,7 @@ public class TurmaControllerTest {
 		
 		List<Aluno> alunos = new ArrayList<>();
 		alunos.add(new Aluno(6L, "João", new Integer(6), new BigDecimal(8.9), new Turma()));
-		Turma turma = new Turma(4L, "Arthur Nogueira", "7ª", "702",  alunos, new Integer(5));
+		Turma turma = new Turma(4L, "Arthur Nogueira", 7, 702,  alunos, new Integer(5));
 		List<Turma> turmas = new ArrayList<>();
 		turmas.add(turma);
 	
@@ -61,7 +61,6 @@ public class TurmaControllerTest {
 	}
 	
 	
-	
 	@Test
 	public void doFindById_AndShouldReturnTurmaWithGivenId() throws Exception {
 		
@@ -70,13 +69,13 @@ public class TurmaControllerTest {
 		
 		when(service.findById(4L))
 		.thenReturn(
-				new Turma(4L, "Arthur Nogueira", "7ª", "702",  alunos, new Integer(5))
+				new Turma(4L, "Arthur Nogueira", 7, 702,  alunos, new Integer(5))
 		);
 		
 		mockMvc.perform(get("/v1/turma/{id}", "4"))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.nomeDoProfessor", is("Arthur Nogueira")))
-		.andExpect(jsonPath("$.serie", is("7ª")));
+		.andExpect(jsonPath("$.serie", is(7)));
 	}
 	
 	@Test
@@ -85,7 +84,7 @@ public class TurmaControllerTest {
 		List<Aluno> alunos = new ArrayList<>();
 		alunos.add(new Aluno(6L, "João", new Integer(6), new BigDecimal(8.9), new Turma()));
 		
-		Turma turma = new Turma(4L, "Arthur Nogueira", "7ª", "702",  alunos, new Integer(5));
+		Turma turma = new Turma(4L, "Arthur Nogueira", 7, 702,  alunos, new Integer(5));
 		
 		
 		this.mockMvc.perform(post("/v1/turma")
@@ -102,7 +101,7 @@ public class TurmaControllerTest {
 		List<Aluno> alunos = new ArrayList<>();
 		alunos.add(new Aluno(6L, "João", new Integer(6), new BigDecimal(8.9), new Turma()));
 		
-		Turma turma = new Turma(4L, "Arthur Nogueira", "7ª", "702",  alunos, new Integer(5));
+		Turma turma = new Turma(4L, "Arthur Nogueira", 7, 702,  alunos, new Integer(5));
 		
 		this.mockMvc.perform(put("/v1/turma/{id}", "4")
 				.contentType(MediaType.APPLICATION_JSON)

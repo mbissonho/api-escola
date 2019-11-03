@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -46,4 +48,10 @@ public class Aluno {
 	@ManyToOne
 	@NotNull(message = "Turma é obrigatório")
 	private Turma turma;
+	
+	@PreUpdate
+	@PrePersist
+	public void removeWhiteSpace() {
+		this.nome = this.nome.trim();
+	}
 }

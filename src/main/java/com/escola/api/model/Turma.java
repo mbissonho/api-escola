@@ -10,9 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,11 +39,11 @@ public class Turma {
 	@NotBlank(message = "Nome do Professor é obrigatório")
 	private String nomeDoProfessor;
 	
-	@NotBlank(message = "Série é obrigatório")
-	private String serie;
+	@NotNull(message = "Série é obrigatório")
+	private Integer serie;
 	
-	@NotBlank(message = "Título é obrigatório")
-	private String titulo;
+	@NotNull(message = "Título é obrigatório")
+	private Integer titulo;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "turma", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
@@ -52,6 +55,12 @@ public class Turma {
 	@PostLoad
 	public void countQuantidadeDeAlunos() {
 		this.quantidadeDeAlunos = this.alunos.size();
+	}
+	
+	@PreUpdate
+	@PrePersist
+	public void removeWhiteSpace() {
+		this.nomeDoProfessor = this.nomeDoProfessor.trim();
 	}
 	
 }
