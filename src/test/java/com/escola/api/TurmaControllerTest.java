@@ -18,21 +18,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 import com.escola.api.controller.TurmaController;
 import com.escola.api.model.Aluno;
 import com.escola.api.model.Turma;
 import com.escola.api.service.TurmaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(TurmaController.class)
@@ -47,35 +41,26 @@ public class TurmaControllerTest {
 	@MockBean
 	private TurmaService service;
 	
-	/*
 	
 	@Test
-	public void doSearch_AndShouldReturnTurmas() throws Exception {
+	public void doFindAll_AndShouldReturnTurmas() throws Exception {
 		
 		List<Aluno> alunos = new ArrayList<>();
 		alunos.add(new Aluno(6L, "João", new Integer(6), new BigDecimal(8.9), new Turma()));
-		
 		Turma turma = new Turma(4L, "Arthur Nogueira", "7ª", "702",  alunos, new Integer(5));
-		
 		List<Turma> turmas = new ArrayList<>();
 		turmas.add(turma);
-		
-		Page<Turma> page = new PageImpl<>(turmas);
-		
-		when(service.search(PageRequest.of(0, 1))).thenReturn(page);
+	
+		when(service.findAll()).thenReturn(turmas);
 			
-		MvcResult result = (MvcResult) mockMvc.perform(get("/v1/turma")
+		mockMvc.perform(get("/v1/turma")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(PageRequest.of(0,  1)))
 		)
 		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.totalElements", is(1)));
-		
-		System.out.println("RESULT" + result.getResponse().getContentAsString());
-		
+		.andExpect(jsonPath("$[0].nomeDoProfessor", is("Arthur Nogueira")));	
 	}
 	
-	*/
+	
 	
 	@Test
 	public void doFindById_AndShouldReturnTurmaWithGivenId() throws Exception {
