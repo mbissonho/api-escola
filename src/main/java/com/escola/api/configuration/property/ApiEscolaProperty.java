@@ -1,4 +1,4 @@
-package com.escola.api.config.property;
+package com.escola.api.configuration.property;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

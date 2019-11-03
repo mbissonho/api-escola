@@ -71,5 +71,4 @@ public class SystemExceptionHandler extends ResponseEntityExceptionHandler{
 		return SystemErrors;
 	}
 	
-	
 }

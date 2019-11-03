@@ -1,4 +1,4 @@
-package com.escola.api.config.cors;
+package com.escola.api.configuration.cors;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.escola.api.config.property.ApiEscolaProperty;
+import com.escola.api.configuration.property.ApiEscolaProperty;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
