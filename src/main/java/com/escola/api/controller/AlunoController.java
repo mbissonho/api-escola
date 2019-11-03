@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +28,8 @@ public class AlunoController {
 	private AlunoService service;
 	
 	@GetMapping
-	public ResponseEntity<Iterable<Aluno>> search(Pageable pageable){
-		return new ResponseEntity<Iterable<Aluno>>(service.search(pageable), HttpStatus.OK);
+	public ResponseEntity<List<Aluno>> search(){
+		return new ResponseEntity<List<Aluno>>(service.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/turma/{turmaId}")

@@ -24,9 +24,9 @@ public class AlunoService {
 	@Autowired
 	private TurmaService turmaService;
 	
-	public Iterable<Aluno> search(Pageable pageable) {
+	public List<Aluno> findAll() {
 		log.info("Buscando alunos");
-		return this.repository.findAll(pageable);
+		return this.repository.findAll();
 	}
 
 	public Aluno create(Aluno aluno) {

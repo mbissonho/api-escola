@@ -1,9 +1,10 @@
 package com.escola.api.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +30,8 @@ public class TurmaController {
 	private TurmaService service;
 	
 	@GetMapping
-	public ResponseEntity<Iterable<Turma>> search(Pageable pageable){
-		return new ResponseEntity<Iterable<Turma>>(service.search(pageable), HttpStatus.OK);
+	public ResponseEntity<List<Turma>> findAll(){
+		return new ResponseEntity<List<Turma>>(service.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")

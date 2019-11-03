@@ -10,14 +10,20 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import com.escola.api.config.property.ApiEscolaProperty;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsConfig implements Filter{
 
+	@Autowired
+	private ApiEscolaProperty property;
+	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
@@ -25,10 +31,10 @@ public class CorsConfig implements Filter{
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
-		response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+		response.setHeader("Access-Control-Allow-Origin", this.property.getOriginAllowed());
         response.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		if ("OPTIONS".equals(request.getMethod()) && "http://localhost:4200".equals(request.getHeader("Origin"))) {
+		if ("OPTIONS".equals(request.getMethod()) && this.property.getOriginAllowed().equals(request.getHeader("Origin"))) {
 			response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
         	response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
         	response.setHeader("Access-Control-Max-Age", "3600");
