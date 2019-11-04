@@ -126,23 +126,6 @@ public class TurmaControllerTest {
 	}
 	
 	@Test
-	public void doUpdate_AndShouldThrowEmptyResultDataAccessExceptionForGivenTurma() throws Exception {
-		
-		Turma turma = new Turma();
-		
-		Mockito.doThrow(new EmptyResultDataAccessException(1))
-		.when(service)
-		.update(4L, turma);
-		
-		this.mockMvc.perform(put("/v1/turma/{id}", "4")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(turma))
-		).andExpect(status().isNotFound())
-		.andExpect(jsonPath("$[0].userMessage", is("Erro: recurso não encontrado")));
-		
-	}
-	
-	@Test
 	public void doDeleteById_AndShouldReturnHttpStatusNoContent() throws Exception {
 		this.mockMvc.perform(delete("/v1/turma/{id}","13")).andExpect(status().isNoContent());
 	}

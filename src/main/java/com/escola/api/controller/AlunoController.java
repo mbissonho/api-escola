@@ -28,7 +28,7 @@ public class AlunoController {
 	private AlunoService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Aluno>> search(){
+	public ResponseEntity<List<Aluno>> findAll(){
 		return new ResponseEntity<List<Aluno>>(service.findAll(), HttpStatus.OK);
 	}
 	
