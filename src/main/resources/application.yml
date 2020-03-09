@@ -18,3 +18,10 @@ spring:
     encoding: UTF-8
 apiescola:
   origin-allowed: http://localhost:4200
+
+graphql:
+  spqr:
+    gui:
+      enabled: true
+    relay:
+      connection-check-relaxed: true

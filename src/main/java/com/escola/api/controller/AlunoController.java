@@ -31,12 +31,7 @@ public class AlunoController {
 	public ResponseEntity<List<Aluno>> findAll(){
 		return new ResponseEntity<List<Aluno>>(service.findAll(), HttpStatus.OK);
 	}
-	
-	@GetMapping("/turma/{turmaId}")
-	public ResponseEntity<List<Aluno>> findByTurma(@PathVariable Long turmaId){
-		return new ResponseEntity<List<Aluno>>(service.findByTurma(turmaId), HttpStatus.OK);
-	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Aluno> findById(@PathVariable Long id){
 		return new ResponseEntity<Aluno>(service.findById(id), HttpStatus.OK);

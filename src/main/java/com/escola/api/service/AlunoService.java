@@ -20,9 +20,6 @@ public class AlunoService {
 	@Autowired
 	private AlunoRepository repository;
 	
-	@Autowired
-	private TurmaService turmaService;
-	
 	public List<Aluno> findAll() {
 		log.info("Buscando alunos");
 		return this.repository.findAll();
@@ -51,12 +48,7 @@ public class AlunoService {
 		Aluno alunoSaved = this.findAlreadySaved(id);
 		return alunoSaved;
 	}
-	
-	public List<Aluno> findByTurma(Long turmaId) {
-		log.info("Buscando alunos pela turma");
-		return this.repository.findByTurma(this.turmaService.findById(turmaId));
-	}
-	
+
 	private Aluno findAlreadySaved(Long id) {
 		Optional<Aluno> alunoOp = repository.findById(id);
 		if(!alunoOp.isPresent()) {
