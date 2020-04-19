@@ -28,6 +28,8 @@ Projeto para demonstrar um simples CRUD, sendo essa parte o backend REST com o F
 
 1. Maven 3.6.0
 2. Openjdk 1.8.0_242
+3. Docker 19.03.8
+4. Docker Compose 1.25.5
 
 
 
