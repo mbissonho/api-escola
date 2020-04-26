@@ -1,0 +1,25 @@
+spring:
+
+  datasource:
+    url: ${JAWSDB_URL}
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+
+  messages:
+    encoding: UTF-8
+apiescola:
+  origin-allowed: https://spa-escola.herokuapp.com
+
+graphql:
+  spqr:
+    gui:
+      enabled: true
+    relay:
+      connection-check-relaxed: true
