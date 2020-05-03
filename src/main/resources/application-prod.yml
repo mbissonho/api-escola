@@ -20,6 +20,6 @@ apiescola:
 graphql:
   spqr:
     gui:
-      enabled: true
+      enabled: false
     relay:
       connection-check-relaxed: true
